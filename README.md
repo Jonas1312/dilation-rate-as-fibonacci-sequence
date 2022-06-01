@@ -184,17 +184,7 @@ for nb_layers in range(1, nb_layers_end + 1):
     writer.append_data(np.array(pil_img))
 ```
 
-
-```python
-Image(filename="anim.gif")
-```
-
-
-
-
-    <IPython.core.display.Image object>
-
-
+![](anim.gif)
 
 
 ```python
