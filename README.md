@@ -54,7 +54,7 @@ def generate_network(dilation_rates: list):
 We also need another function that:
 1) initializes the network
 2) creates the input image
-3) compute the output
+3) computes the output
 4) returns the gradient of the output center pixel with respect to the input image
 
 
@@ -131,9 +131,9 @@ plot_grad(
     
 
 
-We can see that the output center pixel has a big receptive field encompassing the whole image, which is the whole purpose of dilated convolutions.
+We can see that the output center pixel has a big receptive field encompassing the whole image, which is the purpose of dilated convolutions.
 
-However, we also clearly see a uniform grid of pixels not contributing to the output center pixel, which is the unwanted gridding problem.
+However, we also clearly notice a uniform grid of pixels not contributing to the output center pixel, which is the unwanted gridding problem.
 
 In some neural network architectures, we sometimes see successive dilation rates growing exponentially:
 
