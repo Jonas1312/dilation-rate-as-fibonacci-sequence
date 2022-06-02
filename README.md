@@ -1,5 +1,34 @@
 # Dilation Rate Gridding Problem and How to Solve It With the Fibonacci Sequence
 
+## Introduction
+
+In convolutional neural networks, it is assumed that the receptive field must cover a sufficiently large area of the input image, so that the last layers of the network can have a global overview of the elements present in it.
+
+On the figure below, we see how stacking two 3x3 convolutions will result in a 5x5 receptive field with 18 parameters (3x3 + 3x3 = 18):
+
+[![](receptive-field.png)](https://towardsdatascience.com/a-guide-for-building-convolutional-neural-networks-e4eefd17f4fd)
+
+There's usually 3 common ways to increase the receptive field:
+1) more layers
+2) pooling with strides
+3) dilated convolutions.
+
+The most used technique is to add a pooling layer. It's indeed very effective at increasing the receptive field without any added computational cost.
+
+However, pooling can cause several issues such as [breaking the Shannon-Nyquist sampling theorem](https://richzhang.github.io/antialiased-cnns/). It also, by definition, provokes a loss of data which can be undesirable when we need to preserve the original image resolution.
+
+The other technique uses dilated convolutions:
+
+![](dilated-conv.png)
+
+Dilated convolutions preserve the number of parameters and the resolution, while effectively increasing the receptive field.
+
+However, they also come with an interesting issue: **the gridding problem**.
+
+## Problematic
+
+Let's do some visualizations using Python and PyTorch to see how the gridding problem appears.
+
 Some imports:
 
 
@@ -55,7 +84,7 @@ We also need another function that:
 1) initializes the network
 2) creates the input image
 3) computes the output
-4) returns the gradient of the output center pixel with respect to the input image
+4) returns the gradient of the output center pixel with respect to the input image.
 
 
 ```python
@@ -85,7 +114,7 @@ We create a function to help with plotting the gradient.
 
 For all visualizations below:
 - white pixels have no impact on the output center pixel
-- blue pixels have an impact on the output, the darker the blue, the greater the impact.
+- blue pixels have an impact on the output center pixel, the darker the blue, the greater the impact.
 
 
 ```python
@@ -110,11 +139,11 @@ plot_grad(
 
 
     
-![png](README_files/README_14_0.png)
+![png](README_files/README_25_0.png)
     
 
 
-Looks good to me!
+Looks good to me, it's a classic 3-layers CNN with 3x3 kernels...
 
 Now, let's try to reproduce the gridding problem with a 4-layers CNN and a dilation rate of 2:
 
@@ -127,7 +156,7 @@ plot_grad(
 
 
     
-![png](README_files/README_17_0.png)
+![png](README_files/README_28_0.png)
     
 
 
@@ -146,11 +175,13 @@ plot_grad(
 
 
     
-![png](README_files/README_20_0.png)
+![png](README_files/README_31_0.png)
     
 
 
-This shouldn't be used since we can see that some pixels contribute more to the output center than the input center itself.
+This shouldn't be used since we can see that some pixels contribute more to the output center pixel than the input center pixel itself.
+
+## Solution
 
 The key to solve the gridding problem is to use the Fibonacci sequence.
 
@@ -166,7 +197,7 @@ plot_grad(
 
 
     
-![png](README_files/README_23_0.png)
+![png](README_files/README_35_0.png)
     
 
 
