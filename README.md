@@ -23,7 +23,7 @@ The other technique uses dilated convolutions:
 
 Dilated convolutions preserve the number of parameters and the resolution, while effectively increasing the receptive field.
 
-However, they also come with an interesting issue: **the gridding problem**.
+However, they also come with an interesting issue: [**the gridding problem**](https://arxiv.org/abs/1702.08502).
 
 ## Problematic
 
