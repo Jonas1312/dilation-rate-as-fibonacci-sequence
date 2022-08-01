@@ -128,7 +128,7 @@ def plot_grad(grad, title, show=True):
         return ax
 ```
 
-We start with plotting the gradient of the output center pixel w.r.t. the input pixels for a 3-layers convolutional network without dilation ($dilation=1$):
+We start with plotting the gradient of the output center pixel w.r.t. the input pixels for a 3-layers convolutional network without dilation ( $dilation=1$ ):
 
 
 ```python
